@@ -8,33 +8,141 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
+        [TestCategory("Emp General")]
         [TestMethod]
-        public void Numeric()
+        //For Bool Values
+        public void IsFresher()
         {
-            Prime prime = new Prime();
-            var result = prime.IsPrime(7);
-
-            Assert.AreEqual(7,result);
-        }
-
-        [TestMethod]
-        public void StringCheck()
-        {
-            Person person = new Person();
-            person.FName = "Sarah";
-            person.LName = "Smith";
-            StringAssert.Matches(person.FName, new Regex("[A-Z]||[a-z] +[A-Z]{1}[a-z]+"));
-        }
-
-        public void List()
-        {
-            List<Person> list = new List<Person>()
+            Employee employee = new Employee()
             {
-                new Person{FName="Sarah",LName="Smith"},
-                new Person{FName="Alexa",LName="Joe"}
+                EmployeeId = 1,
+                EmployeeFirstName = "Samarth",
+                EmployeeLastName = "Goel",
+                YearOfExperience = 0,
+                EmployeeLastCompany = string.Empty
+            };
+            var result = employee.IsFresher(employee);
+            Assert.IsFalse(result); // similarly we have IsTrue
+
+        }
+
+
+        [TestMethod]
+        public void EmployeeSalary()
+        {
+            Employee employee = new Employee()
+            {
+                EmployeeId = 1,
+                EmployeeFirstName = "Samarth",
+                EmployeeLastName = "Goel",
+                YearOfExperience = 2,
+                EmployeeLastCompany = string.Empty
+            };
+            var result = employee.EmployeeSalary(employee);
+            Assert.AreEqual(12000, result);
+        }
+
+        [TestMethod]
+        //For Null Values
+        public void EmployeeFullNameNull()
+        {
+            Employee employee = new Employee();
+            var result = employee.EmployeeFullName(null);
+            Assert.IsNull(result); // similarly we have isnotnull
+
+        }
+
+        [TestMethod]
+        //For Simple String 
+        public void EmployeeFullName()
+        {
+            Employee employee = new Employee()
+            {
+                EmployeeId = 1,
+                EmployeeFirstName = "Samarth",
+                EmployeeLastName = "Goel",
+                YearOfExperience = 0,
+                EmployeeLastCompany = string.Empty
+            };
+            var result = employee.EmployeeFullName(employee);
+            Assert.AreEqual("Samarth Goel", result);
+            //For case in-sensitive Assert.AreEqual("Samarth Goel", result, true);
+        }
+
+        [TestMethod]
+        //For Simple String 
+        public void EmployeeNameStart()
+        {
+            Employee employee = new Employee()
+            {
+                EmployeeId = 1,
+                EmployeeFirstName = "Samarth",
+                EmployeeLastName = "Goel",
+                YearOfExperience = 0,
+                EmployeeLastCompany = string.Empty
+            };
+            StringAssert.StartsWith(employee.EmployeeFirstName, "Sam");
+            //similarly we have EndsWith and contains
+        }
+
+        [TestMethod]
+        public void RegularExpression()
+        {
+            Employee employee = new Employee();
+            employee.EmployeeFirstName = "Sarah";
+            employee.EmployeeLastName = "Smith";
+            StringAssert.Matches(employee.EmployeeFirstName, new Regex("[A-Z]||[a-z] +[A-Z]{1}[a-z]+"));
+        }
+
+
+
+        [TestMethod]
+        public void CollectionAssertCheck()
+        {
+            List<Employee> list = new List<Employee>()
+            {
+                new Employee{EmployeeFirstName="Sarah",EmployeeLastName="Smith"},
+                new Employee{EmployeeFirstName="Alexa",EmployeeLastName="Joe"}
+            };
+            CollectionAssert.Contains(list, list.Find(x => x.EmployeeLastName=="Joe"));
+            //DoesNotContains
+        }
+
+        [TestMethod]
+        public void TwoCollectionAssertCheck()
+        {
+            Employee employee = new Employee();
+            List<Employee> employees = new List<Employee>()
+            {
+                new Employee{EmployeeFirstName="Sarah",EmployeeLastName="Smith",YearOfExperience=0},
+                new Employee{EmployeeFirstName="Alexa",EmployeeLastName="Joe",YearOfExperience=2},
+                new Employee{EmployeeFirstName="Sam",EmployeeLastName="Joe",YearOfExperience=0},
+
             };
 
-            CollectionAssert.Contains(list, "Sarah Smith");
+            List<Employee> employeesFresher = employee.EmployeeFresher(employees);
+            CollectionAssert.AreEqual(employeesFresher, employees.FindAll(x=>x.YearOfExperience==0)); //check sequence
+            //AreEquivalent doesn't check order
+            //AllItemsAreUnique
+            //Assert.IsTrue(list1.any(x=>x.contains()))
+        }
+
+        [TestMethod]
+        public void Exception()
+        {
+            Employee employee = new Employee();
+            Assert.ThrowsException<CustomException> (() => employee.EmployeeSalary(null));
+
+        }
+
+        [TestMethod]
+        public void Type()
+        {
+            Employee employee = new Employee();
+            Assert.IsInstanceOfType(employee, typeof(Employee));
+
+            //AreSame & not same also (obj1,obj2) 
+
         }
     }
 }

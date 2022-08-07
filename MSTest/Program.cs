@@ -2,31 +2,18 @@
 
 namespace MSTest
 {
-    public class Person
-    {
-        public string FName { get; set; }
-
-        public string LName { get; set; }
-
-    }
-    public class Prime
-    {
-        public int IsPrime(int num)
-        {
-            for (int index = 2; index <= num / 2; index++)
-            {
-                if (num % index == 0)
-                    return index;
-            }
-
-            return num;
-        }
-    }
     public class Program
     {
         static void Main(string[] args)
         {
-
+            Employee employee = new Employee() { 
+                EmployeeId = 1,
+                EmployeeFirstName = "Samarth", 
+                EmployeeLastName="Goel",
+                YearOfExperience = 0
+            };
+            employee.EmployeeFullName(null);
+            Console.WriteLine(employee.IsFresher(employee));
             Console.ReadLine();
         }
     }
