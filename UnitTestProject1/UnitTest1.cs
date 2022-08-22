@@ -8,8 +8,8 @@ namespace UnitTestProject1
     [TestClass]
     public class UnitTest1
     {
-        [TestCategory("Emp General")]
         [TestMethod]
+        [Ignore]// will not execute
         //For Bool Values
         public void IsFresher()
         {
@@ -28,6 +28,7 @@ namespace UnitTestProject1
 
 
         [TestMethod]
+        [PlayDefault]
         public void EmployeeSalary()
         {
             Employee employee = new Employee()
@@ -43,6 +44,7 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        [PlayDefault]
         //For Null Values
         public void EmployeeFullNameNull()
         {
@@ -97,6 +99,7 @@ namespace UnitTestProject1
 
 
         [TestMethod]
+        [TestCategory("List")]
         public void CollectionAssertCheck()
         {
             List<Employee> list = new List<Employee>()
@@ -109,6 +112,7 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        [TestCategory("List")]
         public void TwoCollectionAssertCheck()
         {
             Employee employee = new Employee();

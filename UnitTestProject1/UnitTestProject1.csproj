@@ -17,4 +17,10 @@
     <ProjectReference Include="..\MSTest\MSTest.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Damage.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
